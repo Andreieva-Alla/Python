@@ -1,6 +1,8 @@
-# Searching the minimum of a function using gradient descent
+# Searching the minimum of a function by using gradient descent method
 
+from copy import copy, deepcopy
 import numpy as np
+import matplotlib.pyplot as plt
 
 def plot_convergence_1d(func, x_steps, y_steps, ax, grid=None, title=""):
     
