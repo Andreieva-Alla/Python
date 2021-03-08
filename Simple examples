@@ -1,0 +1,149 @@
+def sec_smallest(numbers):  
+    
+    a=min(numbers)
+    d=numbers.count(a)
+    for _ in numbers: 
+        if d>=1:
+            numbers.remove(a)
+            d-=1
+    return(min(numbers))
+   
+    
+print('Sec_smallest:', sec_smallest([1, 2, -8, -8, -2, 0]))
+
+
+def max_sum_index (tuples):
+    a=tuples[0]
+    max=a[0]+a[1]
+    n=0
+    for i in tuples:
+        a=(i)
+        if max<(a[0]+a[1]):
+            max=a[0]+a[1]
+            n+=1
+    return n
+print(max_sum_index([(100, 20), (40, 32), (30, 25)]))
+
+
+# The greatest common divisor
+def gcd(x, y): 
+    while y!=0:
+        x,y = y, x%y
+    return x
+print(gcd(160, 180))
+
+
+
+def recursive_list_sum(data_list):
+    m=0
+    for i in data_list:
+        if type(i)==int:
+            m=m+i
+        else:
+            l=list(i)
+            for j in l:
+                m=m+j
+    return m
+
+print('The sum of a list is ', recursive_list_sum([1, 2, [3,4],[5,6], [7, 8, 9]]))
+
+
+def debug(func):
+    def sign(arg1, arg2):
+        print ('{} ({},{}) was called and returned '.format(func.__name__, arg1, arg2), func(arg1, arg2))
+    return sign
+
+@debug
+def add(a, b):
+    return a + b
+
+add(3, 4)
+
+
+class Conv:
+    def __init__(self):
+        self.val = [
+            1000, 900, 500, 400,
+            100, 90, 50, 40,
+            10, 9, 5, 4, 1
+        ]
+
+        self.syb = [
+            'M', 'CM', 'D', 'CD',
+            'C', 'XC', 'L', 'XL',
+            'X', 'IX', 'V', 'IV',
+            'I'
+        ]
+        
+    def to_roman(self, num):    
+        b=10
+        a=''
+        while num>0:
+            f=num%b
+            num=num-f
+            b=b*10
+            if f!=0:
+                a=self.syb[self.val.index(f)]+a
+        return a
+
+print('Converted:', Conv().to_roman(44))
+
+
+
+class CombinationsList:
+    @staticmethod
+    def get_combinations(my_list):
+        def help (n, my_list):
+            L2=[]
+            while n < len(my_list):
+                L2+=[L1+[my_list[n]]]
+                n+=1
+            return L2
+        L1=[]
+        k=0 
+        n=1
+        D=[]
+        while k<= (len(my_list)):
+            D+=help(k,my_list)
+            k+=1
+            if k==len(my_list): 
+                n+=1
+                k=n
+                if n==len(my_list): break
+            L1=my_list[k-n:k]
+        return ([[]]+D)
+    
+print('Combinations:', CombinationsList().get_combinations([1, 2, 'a']))
+
+
+
+class Rocket:
+
+    def __init__(self, name, mission):
+        self.__name = name      
+        self.__mission = mission
+
+    def getMission(self): 
+        return self.__mission
+
+    def addMission(self, mission): 
+        self.__mission = [self.getMission(), mission]
+        return self.__mission
+
+    def getName(self):
+        return self.__name
+
+    
+class Shuttle(Rocket):
+
+    def __init__(self, name, mission, model): 
+        super(Shuttle, self).__init__(name, mission)
+        self.__model = model 
+    
+    def getDescription(self):
+        return 'Name: {0}\nModel: {1}\nMissions: {2}'.format(self.getName(), self.__model, str(self.getMission()))
+
+dragon = Shuttle("Crew Dragon", "Dragon 2 pad abort test", "V2")
+print(dragon.getDescription(), '\n')
+dragon.addMission('Dragon 2 in-flight abort test')
+print(dragon.getDescription())
